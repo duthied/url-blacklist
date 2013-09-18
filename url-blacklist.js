@@ -17,12 +17,12 @@ app.configure(function () {
 // TODO: add a post endpoint for adding url
 // TODO: add a delete endpoint for removing a url
 
-app.get('/urlinfo/:version/:host_name/:lookup', function(req, res) {
+app.get('/urlinfo/:version/:host_and_port/:url', function(req, res) {
   var version = req.params.version,
-    host_name = req.params.host_name,
-    lookup = req.params.lookup;
+    host_and_port = req.params.host_and_port,
+    url = req.params.url;
 
-  console.log("version: " + version + ", host name: " + host_name + ", lookup: " + lookup);
+  console.log("version: " + version + ", host name: " + host_and_port + ", url: " + url);
 
   // TODO: handle different versions of the endpoint
 
@@ -36,8 +36,12 @@ app.get('/urlinfo/:version', function(req, res) {
   });
 });
 
-app.post('/urlinfo/:version', function(req, res){
-  db.create_url(req.query.url, function(new_url) {
+app.post('/urlinfo/:version/:host_and_port/:url', function(req, res){
+  var version = req.params.version,
+    host_and_port = req.params.host_and_port,
+    url = req.params.url;
+
+  db.create_url(host_and_port, url, function(new_url) {
     console.log('created url: ' + JSON.stringify(new_url));
     res.send(JSON.stringify(new_url));
   });
