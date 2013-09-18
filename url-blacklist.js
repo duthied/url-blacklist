@@ -16,17 +16,17 @@ app.configure(function () {
 
 // TODO: add a post endpoint for adding url
 // TODO: add a delete endpoint for removing a url
+// TODO: handle different versions of the endpoint
 
 app.get('/urlinfo/:version/:host_and_port/:url', function(req, res) {
   var version = req.params.version,
     host_and_port = req.params.host_and_port,
     url = req.params.url;
 
-  console.log("version: " + version + ", host name: " + host_and_port + ", url: " + url);
-
-  // TODO: handle different versions of the endpoint
-
-  res.send('not implemented yet');
+  db.find_one(host_and_port, url, function(url) {
+    console.log('url: ' + JSON.stringify(url));
+    res.send(JSON.stringify(url));
+  });
 });
 
 app.get('/urlinfo/:version', function(req, res) {
