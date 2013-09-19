@@ -27,6 +27,7 @@ Release plan:
 -------------
 v1.0 
 Basic node api to respond to GET request with either information about the requested url (JSON payload) or a 404 if the requested resource is not found in the database
+Found here: https://github.com/duthied/url-blacklist/tree/1.0
 
 v1.2 
 Add an update endpoint to service to handle a POST with a list of JSON items to be added to the database
