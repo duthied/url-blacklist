@@ -21,7 +21,7 @@ Technology Choices:
   * https://github.com/caolan/nodeunit for Unit Testing
 * MongoDB for database (replication, sharding for future scaling considerations) - Mongoose 3.x for ORM interface to MongoDB
 
-* HAProxy in front of the service nodes for load balancing
+* (proposal) HAProxy in front of the service nodes for load balancing
 
 Release plan:
 -------------
