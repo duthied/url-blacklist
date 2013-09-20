@@ -39,16 +39,20 @@ Improve organization and structure + a unit test for the model.
 Found here: https://github.com/duthied/url-blacklist/releases/tag/1.1
 
 v1.2 
+A minor update (in hindsight this should have been v1.1.1) that changes the return value when a requested resource is not found from 404 to an emtpy JSON array. 
+Found here: https://github.com/duthied/url-blacklist/releases/tag/1.2
+
+v1.3 
 Add an update endpoint to service to handle a POST with a list of JSON items to be added to the database.
 
-v1.3 (proposal/future consideration)
+v1.4 (proposal/future consideration)
 Add a queue that the update endpoint will add the list items to.
 
-v1.4 (proposal/future consideration)
+v1.5 (proposal/future consideration)
 Add an endpoint to be called by a scheduled task to process adds/deletes in the queue list (unless there's a way to do this in MongoDB).
 
-v1.5 (proposal/future consideration)
+v1.6 (proposal/future consideration)
 Config for HAProxy to handle load balancing of nodes (optional).
 
-v1.6 (proposal/future consideration)
+v1.7 (proposal/future consideration)
 Sharding/Replication config/nodes for MongoDB (optional).
