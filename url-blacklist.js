@@ -1,5 +1,12 @@
 // ------------------------------------------------------------
-// app setup
+// this is the main 'server' for this service
+//  it provides 3 endpoints:
+//    GET /urlinfo/:version/:host_and_port/:url to return a
+//      single element array if the requested resource was found
+//      or an empty array if not found
+//    GET /urlinfo/:version to return an array of all the urls
+//    POST /urlinfo/:version/:host_and_port/:url to create a
+//      url resource and return the created resource
 // ------------------------------------------------------------
 
 var express = require('express'),
@@ -36,7 +43,7 @@ app.configure('development', function(){
 // TODO: handle different versions of the endpoint
 
 // get a specific host_and_port + url resource from the db
-// return 404 if not found
+// return empty array if not found
 app.get('/urlinfo/:version/:host_and_port/:url', function(req, res) {
   var version = req.params.version,
     host_and_port = req.params.host_and_port,
@@ -46,11 +53,7 @@ app.get('/urlinfo/:version/:host_and_port/:url', function(req, res) {
     function (result) { // success
       var body = JSON.stringify(result);
       console.log('body: %s', body);
-      if (result.length > 0) {
-        sendJSONResult(res, body);
-      } else {
-        sendPlainTextResult(res, 404);
-      }
+      sendJSONResult(res, body);
     },
     function (err) { // failure
       console.error(err.stack);
