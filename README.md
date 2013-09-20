@@ -21,7 +21,12 @@ Technology Choices:
   * https://github.com/caolan/nodeunit for Unit Testing
 * MongoDB for database (replication, sharding for future scaling considerations) - Mongoose 3.x for ORM interface to MongoDB
 
-* (proposal) HAProxy in front of the service nodes for load balancing
+* (proposal/future consideration) HAProxy in front of the service nodes for load balancing
+
+Testing:
+--------
+* using nodeunit (https://github.com/caolan/nodeunit)
+* tests reside the test folder
 
 Release plan:
 -------------
@@ -29,8 +34,11 @@ v1.0
 Basic node api to respond to GET request with either information about the requested url (JSON payload) or a 404 if the requested resource is not found in the database.
 Found here: https://github.com/duthied/url-blacklist/tree/1.0
 
+v1.1
+Improve organization and structure + a unit test for the model
+
 v1.2 
-Add an update endpoint to service to handle a POST with a list of JSON items to be added to the database + unit tests
+Add an update endpoint to service to handle a POST with a list of JSON items to be added to the database
 
 v1.3 (potential consideration)
 Add a queue that the update endpoint will add the list items to
