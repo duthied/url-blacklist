@@ -30,15 +30,15 @@ Testing:
 
 Release plan:
 -------------
-v1.0 
+v1.0 [released]
 Basic node api to respond to GET request with either information about the requested url (JSON payload) or a 404 if the requested resource is not found in the database. 
 Found here: https://github.com/duthied/url-blacklist/tree/1.0
 
-v1.1
+v1.1 [released]
 Improve organization and structure + a unit test for the model. 
 Found here: https://github.com/duthied/url-blacklist/releases/tag/1.1
 
-v1.2 
+v1.2 [released]
 A minor update (in hindsight this should have been v1.1.1) that changes the return value when a requested resource is not found from 404 to an emtpy JSON array. 
 Found here: https://github.com/duthied/url-blacklist/releases/tag/1.2
 
