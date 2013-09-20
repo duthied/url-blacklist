@@ -10,8 +10,11 @@ var app = express();
 app.use(express.bodyParser());
 
 var config = require('./config').settings;
-var URLProvider = require('./lib/db').URLProvider;
-var url_provider = new URLProvider();
+// the controller manages the model and the persistance of the model,
+//  abstracted away from the presentation layer so it can be changed
+//  if the requirements change drastically
+var Controller = require('./controller').Controller;
+var controller = new Controller();
 
 app.configure(function () {
   app.set('port', process.env.PORT || config.server_port);
@@ -39,7 +42,7 @@ app.get('/urlinfo/:version/:host_and_port/:url', function(req, res) {
     host_and_port = req.params.host_and_port,
     url = req.params.url;
 
-  url_provider.findOne(host_and_port, url,
+  controller.findOne(host_and_port, url,
     function (result) { // success
       var body = JSON.stringify(result);
       console.log('body: %s', body);
@@ -57,7 +60,7 @@ app.get('/urlinfo/:version/:host_and_port/:url', function(req, res) {
 
 // list all the url models from the db
 app.get('/urlinfo/:version', function(req, res) {
-  var urls = url_provider.findAll(
+  var urls = controller.findAll(
     function (result) { // success
       var body = JSON.stringify(result);
       sendJSONResult(res, body);
@@ -75,7 +78,7 @@ app.post('/urlinfo/:version/:host_and_port/:url', function(req, res){
     host_and_port = req.params.host_and_port,
     url = req.params.url;
 
-  url_provider.createUrl(host_and_port, url,
+  controller.create(host_and_port, url,
     function (result) { //success
       var body = JSON.stringify(result);
       sendJSONResult(res, body);

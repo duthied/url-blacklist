@@ -2,11 +2,13 @@
 // this file can be replaced with some other ORM/db wrapper
 // ------------------------------------------------------------
 
-var config = require('../config').settings;
-var mongoose = require('mongoose');
+var config = require('./config').settings,
+  mongoose = require('mongoose'),
+  BlackListedUrl = require('./models/blacklistedurl');
+
 mongoose.set('debug', true);
 
-URLProvider = function() {
+Controller = function() {
   this.mongoose = mongoose;
   this.mongoose.connect(config.db_host + ":" + config.db_port + "/" + config.db_db);
 
@@ -15,24 +17,14 @@ URLProvider = function() {
   that = this;
 
   this.connection.once('open', function() {
-    that.BlackListedUrlSchema = new mongoose.Schema({
-      host_and_port: {
-        type: String
-      },
-      url: {
-        type: String
-      },
-      date: Date
-    });
-    that.BlackListedUrlSchema.index({ host_and_port: 1, url: -1 });
-    that.BlackListedUrl = mongoose.model('BlackListedUrl', that.BlackListedUrlSchema);
+    that.BlackListedUrl = BlackListedUrl;
   });
 };
 
 // --------------------------------------------------------------
 // create a url object and return it if it doesn't already exist
 // --------------------------------------------------------------
-URLProvider.prototype.createUrl = function(_host_and_port, _url, success_callback, error_callback) {
+Controller.prototype.create = function(_host_and_port, _url, success_callback, error_callback) {
   that = this;
   // until I can get indexes working correctly, manually check for a dupe before creating
   this.findOne(_host_and_port, _url,
@@ -46,12 +38,10 @@ URLProvider.prototype.createUrl = function(_host_and_port, _url, success_callbac
         error_callback(err);
       } else {
         // not found, create
-        var BlackListedUrl = that.mongoose.model('BlackListedUrl', this.BlackListedUrlSchema);
-        var create_date = new Date();
+        var BlackListedUrl = that.BlackListedUrl;
         var u = new BlackListedUrl({
           url: _url,
-          host_and_port: _host_and_port,
-          date: create_date
+          host_and_port: _host_and_port
         });
 
         u.save(function(err, new_url) {
@@ -74,7 +64,7 @@ URLProvider.prototype.createUrl = function(_host_and_port, _url, success_callbac
 // ----------------------------------
 // find one url object and return it
 // ----------------------------------
-URLProvider.prototype.findOne = function(_host_and_port, _url, success_callback, error_callback) {
+Controller.prototype.findOne = function(_host_and_port, _url, success_callback, error_callback) {
   this.BlackListedUrl.find({
     url: _url,
     host_and_port: _host_and_port
@@ -91,7 +81,7 @@ URLProvider.prototype.findOne = function(_host_and_port, _url, success_callback,
 // ----------------------------------------------
 // get all url objects in the db and return them
 // ----------------------------------------------
-URLProvider.prototype.findAll = function(success_callback, error_callback) {
+Controller.prototype.findAll = function(success_callback, error_callback) {
   this.BlackListedUrl.find(function(err, urls) {
     if (err)  {
       console.error(err);
@@ -102,4 +92,4 @@ URLProvider.prototype.findAll = function(success_callback, error_callback) {
   });
 };
 
-exports.URLProvider = URLProvider;
+exports.Controller = Controller;
