@@ -32,14 +32,14 @@ Found here: https://github.com/duthied/url-blacklist/tree/1.0
 v1.2 
 Add an update endpoint to service to handle a POST with a list of JSON items to be added to the database + unit tests
 
-v1.3 
+v1.3 (potential consideration)
 Add a queue that the update endpoint will add the list items to
 
-v1.4 
+v1.4 (potential consideration)
 Add an endpoint to be called by a scheduled task to process adds/deletes in the queue list (unless there's a way to do this in MongoDB)
 
-v1.5 
+v1.5 (potential consideration)
 Config for HAProxy to handle load balancing of nodes (optional)
 
-v1.6 
+v1.6 (potential consideration)
 Sharding/Replication config/nodes for MongoDB (optional)
