@@ -49,7 +49,7 @@ Controller.prototype.create = function(_host_and_port, _url, success_callback, e
             console.error(err);
             error_callback(err);
           }
-          console.log('[db.js] new url: %s', JSON.stringify(new_url));
+          console.log('[controller] new url: %s', JSON.stringify(new_url));
           success_callback(new_url);
         });
       }
@@ -73,7 +73,7 @@ Controller.prototype.findOne = function(_host_and_port, _url, success_callback, 
       console.error(err);
       error_callback(err);
     }
-    console.log('[db.js] urls: %s', JSON.stringify(url));
+    console.log('[controller] urls: %s', JSON.stringify(url));
     success_callback(url);
   });
 };
@@ -87,7 +87,7 @@ Controller.prototype.findAll = function(success_callback, error_callback) {
       console.error(err);
       error_callback(err);
     }
-    console.log('[db.js] urls: %s', JSON.stringify(urls));
+    console.log('[controller] urls: %s', JSON.stringify(urls));
     success_callback(urls);
   });
 };
